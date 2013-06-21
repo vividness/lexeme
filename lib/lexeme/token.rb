@@ -1,6 +1,6 @@
 module Lexeme
   class Token 
-    attr_accessor :name, :value
+    attr_reader :name, :value
 
     def initialize(name, value)
       @name  = name
@@ -13,14 +13,6 @@ module Lexeme
 
     def to_array
       [@name, @value]
-    end
-
-    def to_hash
-      {:name => @name, :value => @value}
-    end
-
-    def to_json
-      "{'name' : #{@name}, 'value' : #{@value}}"
     end
   end
 end
