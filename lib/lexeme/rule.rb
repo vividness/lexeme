@@ -4,7 +4,7 @@ module Lexeme
 
     def initialize(name, regex)
       raise ArgumentError, 'name must be a String' unless 
-        name.is_a? String
+        name.nil? || name.is_a?(String)
       raise ArgumentError, 'regex must be a Regex' unless 
         regex.is_a? Regexp
       
