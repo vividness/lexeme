@@ -51,24 +51,24 @@ source = 'pseudo-code.src'
 tokens = Lexeme.analyze(source)
 
 tokens.each do |t|
-  puts t.to_text
+  puts "#{t.name}:#{t.value}"
 end
 ```
-Once ran, the code below should output:
+Once ran, the code above should output:
 
-    RESERVED: func
-    ID: hello_world
-    ID: x
-    EQ: =
-    NUMBER: 1
-    ID: y
-    EQ: =
-    ID: x
-    PLUS: +
-    NUMBER: 2
-    RESERVED: print
-    STRING: "Hello"
-    RESERVED: fin
+    RESERVED:func
+    ID:hello_world
+    ID:x
+    EQ:=
+    NUMBER:1
+    ID:y
+    EQ:=
+    ID:x
+    PLUS:+
+    NUMBER:2
+    RESERVED:print
+    STRING:"Hello"
+    RESERVED:fin
 
 Contributing
 ------------
