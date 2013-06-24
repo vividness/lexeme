@@ -78,4 +78,4 @@ make pull requests. Also make sure you check the TODO file when the file is pres
 Author
 ------
 Lexeme was written by Vladimir Ivic (vladimir.ivic at icloud.com) and is
-released under the BSD license.
+released under the MIT license.
