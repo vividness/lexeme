@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.description = 'A smiple lexical analyzer written in Ruby'
 
   s.authors     = ['Vladimir Ivic']
-  s.email       = 'vladimir.ivic@me.com'
+  s.email       = 'vladimir.ivic@icloud.com'
   s.homepage    = 'http://rubygems.org/gems/lexeme'
   s.files       = ['lib/lexeme.rb', 'lib/lexeme/lexeme.rb', 'lib/lexeme/token.rb', 'lib/lexeme/ruleset.rb', 'lib/lexeme/rule.rb']
   
