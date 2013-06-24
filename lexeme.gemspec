@@ -1,5 +1,5 @@
 Gem::Specification.new do |s| 
-  s.name        = 'Lexeme'
+  s.name        = 'lexeme'
   s.version     = '0.0.1'
   s.date        = '2013-06-23'
   s.summary     = 'Lexeme'
