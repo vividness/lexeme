@@ -3,7 +3,7 @@ Gem::Specification.new do |s|
   s.version     = '0.0.1'
   s.date        = '2013-06-23'
   s.summary     = 'Lexeme'
-  s.description = 'A smiple lexical analyzer written in Ruby'
+  s.description = 'A simple lexical analyzer written in Ruby'
 
   s.authors     = ['Vladimir Ivic']
   s.email       = 'vladimir.ivic@icloud.com'
