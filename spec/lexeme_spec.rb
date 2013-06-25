@@ -20,8 +20,8 @@ describe Lexeme do
       expect { Lexeme.analyze '/root/surce.math' }.to raise_error(RuntimeError)
     end
     
-    it 'analyzes a file and returns the tokens' do
-      source = File.dirname(__FILE__) + '/fixtures/source.math'
+    it 'tokenize a math formulas source' do
+      source = File.join(File.dirname(__FILE__), '/fixtures/source.math')
       
       Lexeme.setup do |lex|
         lex.ruleset = Lexeme::Ruleset.new do |r|
@@ -39,7 +39,31 @@ describe Lexeme do
      
       tokens = Lexeme.analyze(source)
       
-      expect { tokens[4][0] == 'FUNCTION' && tokens[4][0] == 'sqrt'}.to be_true 
+      returned = tokens[4].name.eql?('FUNCTION') && tokens[4].value.eql?('sqrt')
+      returned.should be_true 
+    end
+
+    it 'tokenize a program language pseudo code' do
+      source = File.join(File.dirname(__FILE__), '/fixtures/source.pseudo')
+      
+      Lexeme.setup do |lex|
+        lex.ruleset = Lexeme::Ruleset.new do |g| 
+          g.rule 'EQ',       /^=$/
+          g.rule 'PLUS',     /^\+$/
+          g.rule 'MINUS',    /^\-$/
+          g.rule 'MULTI',    /^\*$/
+          g.rule 'DIV',      /^\/$/
+          g.rule 'NUMBER',   /^\d+\.?\d?$/
+          g.rule 'RESERVED', /^(fin|print|func|)$/
+          g.rule 'STRING',   /^".*"$/
+          g.rule 'ID',       /^[\w_"]+$/
+        end
+      end
+
+      tokens = Lexeme.analyze(source)
+      
+      returned = tokens[-1].name.eql?('RESERVED') && tokens[-1].value.eql?('fin')
+      returned.should be_true
     end
   end
 end
