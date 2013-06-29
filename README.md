@@ -33,18 +33,16 @@ Our ruby code should look like this:
 ```ruby
 require 'lexeme'
 
-Lexeme.setup do |lex|
-  lex.ruleset = Lexeme::Ruleset.new do |s| 
-    s.rule 'EQ',       /^=$/
-    s.rule 'PLUS',     /^\+$/
-    s.rule 'MINUS',    /^\-$/
-    s.rule 'MULTI',    /^\*$/
-    s.rule 'DIV',      /^\/$/
-    s.rule 'NUMBER',   /^\d+\.?\d?$/
-    s.rule 'RESERVED', /^(fin|print|func|)$/
-    s.rule 'STRING',   /^".*"$/
-    s.rule 'ID',       /^[\w_"]+$/ 
-  end 
+Lexeme.define do
+  token :EQ       => /^=$/
+  token :PLUS     => /^\+$/
+  token :MINUS    => /^\-$/
+  token :MULTI    => /^\*$/
+  token :DIV      => /^\/$/
+  token :NUMBER   => /^\d+\.?\d?$/
+  token :RESERVED => /^(fin|print|func|)$/
+  token :STRING   => /^".*"$/
+  token :ID       => /^[\w_"]+$/ 
 end
 
 source = 'pseudo-code.src'

@@ -2,6 +2,7 @@ module Lexeme
   class Lexeme
     attr_accessor :ruleset
 
+    # Used by the Lexeme.analyze method
     def analyze(source)
       raise ArgumentError, 'Argument 1 must be a String' unless
         source.instance_of? String
@@ -16,6 +17,17 @@ module Lexeme
       tokens  = scan(content)
       
       tokens
+    end
+    
+    # Used by the Lexeme.define method
+    def token(params)
+      @ruleset ||= Ruleset.new
+
+      name  = params.keys.first   || nil
+      regex = params.values.first || nil 
+      @ruleset.rule(name, regex)
+      
+      @ruleset
     end
 
     private 

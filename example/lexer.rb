@@ -10,17 +10,15 @@ require 'lexeme'
 # Setup the lexeme object by adding language lexical rules.
 # In this case, I described a language that will make the lexer
 # process math equations such is 1 + 4 - 6/5 - sin(1)
-Lexeme.setup do |lex|
-  lex.ruleset = Lexeme::Ruleset.new do |r|
-    r.rule 'LPAR',     /^\($/
-    r.rule 'RPAR',     /^\)$/
-    r.rule 'PLUS',     /^\+$/
-    r.rule 'MINUS',    /^\-$/
-    r.rule 'MULTI',    /^\*$/
-    r.rule 'DIV',      /^\/$/
-    r.rule 'NUMBER',   /^\d+\.?\d?$/
-    r.rule 'FUNCTION', /^(sqrt|pow|sin|cos|tan)$/
-  end 
+Lexeme.define do
+  token :LPAR     =>   /^\($/
+  token :RPAR     =>   /^\)$/
+  token :PLUS     =>   /^\+$/
+  token :MINUS    =>   /^\-$/
+  token :MULTI    =>   /^\*$/
+  token :DIV      =>   /^\/$/
+  token :NUMBER   =>   /^\d+\.?\d?$/
+  token :FUNCTION =>   /^(sqrt|pow|sin|cos|tan)$/
 end
 
 # Now that we have language defined
