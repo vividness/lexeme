@@ -2,5 +2,5 @@ func hello_world
   x = 1
   y = x + 2
 
-  print "Hello"
+  print "Hello world!"
 fin

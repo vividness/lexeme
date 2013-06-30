@@ -37,9 +37,21 @@ module Lexeme
       current  = ''
       tokens   = []
       line     = 1
+      string_state = false
 
       input.each_char do |c|
         line += 1 if c == "\n"
+        
+        if c == "'" || c == '"'
+          previous << c
+          string_state ^= true
+          next
+        end
+
+        if string_state
+          previous << c
+          next
+        end
 
         if ignorable?(c)
           unless previous.empty?

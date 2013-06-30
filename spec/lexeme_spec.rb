@@ -7,7 +7,13 @@ describe Lexeme do
       expect { |b| Lexeme.setup &b }.to yield_with_args(Lexeme::Lexeme)
     end
   end
-
+  
+  describe '#define' do
+    it 'returns Lexeme object' do
+      Lexeme.define { token :ANY => /^.*$/ }.should be_a Lexeme::Lexeme
+    end
+  end
+  
   describe '#analyze' do 
     it 'raise an error if source file is not defined' do
       Lexeme.setup
