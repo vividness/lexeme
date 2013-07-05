@@ -1,6 +1,6 @@
 lexeme
 ======
-A simple programming and human language lexical analyzer written in Ruby.
+A simple lexical analyzer for programming and human languages.
 
 Install
 -------
@@ -45,28 +45,76 @@ Lexeme.define do
   token :ID       => /^[\w_"]+$/ 
 end
 
-source = 'pseudo-code.src'
-tokens = Lexeme.analyze(source)
+tokens = Lexeme.analyze do 
+  from_file 'pseudo-code.src'
+end
 
 tokens.each do |t|
-  puts "#{t.name}:#{t.value}"
+  puts "#{t.name}: #{t.value}"
 end
 ```
+
 Once ran, the code above should output:
 
-    RESERVED:func
-    ID:hello_world
-    ID:x
-    EQ:=
-    NUMBER:1
-    ID:y
-    EQ:=
-    ID:x
-    PLUS:+
-    NUMBER:2
-    RESERVED:print
-    STRING:"Hello"
-    RESERVED:fin
+    RESERVED: func
+    ID: hello_world
+    ID: x
+    EQ: =
+    NUMBER: 1
+    ID: y
+    EQ: =
+    ID: x
+    PLUS: +
+    NUMBER: 2
+    RESERVED: print
+    STRING: "Hello"
+    RESERVED: fin
+
+Human languages 
+---------------
+This lib can also be used for human language processing. Here's a quick example on how to perform such a task.
+
+```ruby
+require 'lexeme'
+
+Lexeme.define do
+  token :STOP     =>   /^\.$/
+  token :COMA     =>   /^,$/
+  token :QUES     =>   /^\?$/
+  token :EXCLAM   =>   /^!$/
+  token :QUOT     =>   /^"$/
+  token :APOS     =>   /^'$/
+  token :WORD     =>   /^[\w\-]+$/
+end 
+
+tokens = Lexeme.analyze do
+  from_string 'Hello! My name is Inigo Montoya. You killed my father. Prepare to die.'
+end
+
+tokens.each do |t|
+  puts "#{t.name}: #{t.value}"
+end
+```
+
+Will output: 
+
+    WORD: Hello
+    EXCLAM: !
+    WORD: My
+    WORD: name
+    WORD: is
+    WORD: Inigo
+    WORD: Montoya
+    STOP: .
+    WORD: You
+    WORD: killed
+    WORD: my
+    WORD: father
+    STOP: .
+    WORD: Prepare
+    WORD: to
+    WORD: die
+    STOP: .
 
 Contributing
 ------------
