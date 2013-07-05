@@ -1,6 +1,6 @@
 lexeme
 ======
-A simple lexical analyzer written in Ruby.
+A simple programming and human language lexical analyzer written in Ruby.
 
 Install
 -------
