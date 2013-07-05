@@ -1,4 +1,4 @@
-lexeme
+lexeme   ![Build Status](https://travis-ci.org/mancmelou/lexeme.png)
 ======
 A simple lexical analyzer for programming and human languages.
 
