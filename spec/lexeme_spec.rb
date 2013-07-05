@@ -15,7 +15,7 @@ describe Lexeme do
   end
   
   describe '#analyze' do 
-    it 'raise an error if source file is not defined' do
+    it 'raise an error if called before #setup' do
       Lexeme.setup
       
       expect { subject.analyze }.to raise_error(ArgumentError)
@@ -43,7 +43,9 @@ describe Lexeme do
         end 
       end
      
-      tokens = Lexeme.analyze(source)
+      tokens = Lexeme.analyze do 
+        from_file source
+      end
       
       returned = tokens[4].name.eql?('FUNCTION') && tokens[4].value.eql?('sqrt')
       returned.should be_true 
@@ -66,10 +68,33 @@ describe Lexeme do
         end
       end
 
-      tokens = Lexeme.analyze(source)
+      tokens = Lexeme.analyze do 
+        from_file source
+      end
       
       returned = tokens[-1].name.eql?('RESERVED') && tokens[-1].value.eql?('fin')
       returned.should be_true
+    end
+
+    it 'tokenizes a human language sentence' do 
+      Lexeme.define do
+        token :STOP     =>   /^\.$/
+        token :COMA     =>   /^,$/
+        token :QUES     =>   /^\?$/
+        token :EXCLAM   =>   /^!$/
+        token :QUOT     =>   /^"$/
+        token :APOS     =>   /^'$/
+        token :WORD     =>   /^[\w\-]+$/
+      end
+      
+      tokens = Lexeme.analyze do  
+        # ref: http://www.youtube.com/watch?v=6JGp7Meg42U 
+        from_string 'Hello! My name is Inigo Montoya. You killed my father. Prepare to die.'
+      end
+      
+      "#{tokens[0].name}: #{tokens[0].value}".should    be_eql 'WORD: Hello'
+      "#{tokens[1].name}: #{tokens[1].value}".should    be_eql 'EXCLAM: !'
+      "#{tokens[-1].name}: #{tokens[-1].value}".should  be_eql 'STOP: .'
     end
   end
 end
