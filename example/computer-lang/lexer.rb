@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # The only reason this line is here is 
 # so I make loading lexeme lib files easier
-($:).unshift(File.join(File.dirname(__FILE__), '../lib/'))
+($:).unshift(File.join(File.dirname(__FILE__), '../../lib/'))
 
 
 # This is how your code should look like - starting this line
