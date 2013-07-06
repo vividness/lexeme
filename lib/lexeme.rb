@@ -2,6 +2,7 @@ require 'lexeme/rule'
 require 'lexeme/ruleset'
 require 'lexeme/token'
 require 'lexeme/lexeme'
+require 'lexeme/core_extensions'
 
 module Lexeme
   VERSION = '0.0.1'
