@@ -1,4 +1,4 @@
-class String 
+class ::String 
   def tokenize
     content = to_s
 
