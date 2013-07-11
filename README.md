@@ -8,6 +8,17 @@ There are two easy ways to get `lexeme` on your box. You can either download the
 
     gem install lexeme
 
+The easiest and fastest way to try the latest version is:
+
+    git clone https://github.com/mancmelou/lexeme.git
+    cd lexeme
+    
+    irb -Ilib 
+    irb(main):001:0> require 'lexeme'
+    => true
+    irb(main):002:0> "Greetings from LA!!".to_tokens
+    => [WORD: Greetings, WORD: from, WORD: LA, EXCL: !, EXCL: !]
+    
 Usage
 -----
 Just look under the `example` directory for a quick example on how the library can be used to efficiently 
