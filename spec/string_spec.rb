@@ -3,9 +3,9 @@ require 'spec_helper'
 describe String do
   subject { 'My name is Inigo Montoya!' }
   
-  describe '#tokenize' do
+  describe '#to_tokens' do
     it 'tokenizes a string' do
-      tokens = subject.tokenize
+      tokens = subject.to_tokens
 
       tokens[0].value.should be_eql 'My'
       tokens[2].value.should be_eql 'is'

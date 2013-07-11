@@ -1,5 +1,5 @@
 class ::String 
-  def tokenize
+  def to_tokens
     content = to_s
 
     Lexeme.define do
