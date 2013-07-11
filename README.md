@@ -72,7 +72,19 @@ Once ran, the code above should output:
 
 Human languages 
 ---------------
-This lib can also be used for human language processing. Here's a quick example on how to perform such a task.
+Lexeme can also be used for human language processing. Here's a quick example on how to do it.
+
+```ruby
+require 'lexeme'
+
+puts "Greetings from Los Angeles!!".to_tokens
+```
+
+Running this code will produce:
+
+    [WORD: Greetings, WORD: from, WORD: Los, WORD: Angeles, EXCL: !, EXCL: !]
+
+A more advanced example with a customized syntatical rules would be something like this:
 
 ```ruby
 require 'lexeme'
