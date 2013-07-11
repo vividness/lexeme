@@ -2,23 +2,6 @@ module Lexeme
   class Lexeme
     attr_accessor :ruleset
 
-    # NOTE: Deprecated as of 0.0.2 
-    def analyze(source)
-      raise ArgumentError, 'Argument 1 must be a String' unless
-        source.instance_of? String
-
-      raise ArgumentError, 'Source not defined' if 
-        source.empty?
-      
-      raise RuntimeError, 'Source file not readable' unless 
-        File.exists?(source)
-      
-      content = IO.read(source)
-      tokens  = scan(content)
-      
-      tokens
-    end
-    
     def from_file(filepath = nil)
       raise ArgumentError, 'Argument 1 must be a String' unless
         filepath.instance_of? String
