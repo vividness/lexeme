@@ -1,0 +1,20 @@
+DIRECTIVE: #include
+SOURCE: <stdio.h>
+RESERVED: int
+RESERVED: main
+LPAR: (
+RESERVED: int
+ID: argc
+COMA: ,
+RESERVED: char
+ASTR: *
+ASTR: *
+ID: argv
+RPAR: )
+LBRA: {
+ID: printf
+LPAR: (
+STRING: "hello, world"
+RPAR: )
+SEMI: ;
+RBRA: }
