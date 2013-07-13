@@ -3,10 +3,9 @@ require 'lexeme/ruleset'
 require 'lexeme/token'
 require 'lexeme/lexeme'
 require 'lexeme/core_extensions'
+require 'lexeme/version'
 
 module Lexeme
-  VERSION = '0.0.2'
-  
   def self.analyze(source = nil)
     raise RuntimeError, 'Please use #define before calling #analyze.' unless @lexer
     
@@ -20,7 +19,7 @@ module Lexeme
   end
   
   def self.define(&block)
-    @lexer = Lexeme.new #unless @lexer
+    @lexer = Lexeme.new 
     @lexer.instance_eval(&block)
     
     @lexer

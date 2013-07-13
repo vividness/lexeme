@@ -7,12 +7,16 @@ module Lexeme
       @value = value
     end
 
-    def to_text
+    def to_s
       "#{@name}: #{@value}"
     end
 
-    def to_array
+    def to_ary
       [@name, @value]
+    end
+
+    def to_array
+      to_ary
     end
   end
 end

@@ -8,33 +8,26 @@
 require 'lexeme'
 
 # Setup the lexeme object by adding language lexical rules.
-# Note: This is not a full C lang spec.
+# In this case, I described a language that will make the lexer
+# process math equations such is 1 + 4 - 6/5 - sin(1)
 Lexeme.define do
   token :LPAR     =>   /^\($/
-  token :LBRA     =>   /^\{$/
   token :RPAR     =>   /^\)$/
-  token :RBRA     =>   /^\}$/
   token :PLUS     =>   /^\+$/
   token :MINUS    =>   /^\-$/
+  token :MULTI    =>   /^\*$/
   token :DIV      =>   /^\/$/
-  token :SEMI     =>   /^;$/
-  token :COMA     =>   /^,$/
-  token :ASTR     =>   /^\*$/
   token :NUMBER   =>   /^\d+\.?\d?$/
-  token :DIRECTIVE=>   /^#[\w]*$/
-  token :SOURCE   =>   /^<[\w\.]*>?$/
-  token :STRING   =>   /^"[^"]*"?$/
-  token :RESERVED =>   /^(int|char|if|else|main)$/
-  token :ID       =>   /^[\w_]+$/
+  token :FUNCTION =>   /^(sqrt|pow|sin|cos|tan)$/
 end
 
 # Now that we have language defined
 # Let's analyze the file and collect the tokens
 tokens = Lexeme.analyze do 
-  from_file 'hello_world.c'
+  from_file 'sample_math.txt'
 end
 
 # Once we have the tokens, we can choose what 
 # output we want to render out. I'll display something
 # similar to what GNU flex would display
-tokens.each { |t| puts "#{t}" }
+tokens.each { |t| puts "#{t.name}: #{t.value}" }

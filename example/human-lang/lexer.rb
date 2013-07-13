@@ -18,22 +18,10 @@ Lexeme.define do
   token :WORD     =>   /^[\w\-]+$/
 end
 
-# Set our text file path that we want to run analysis against
-ipsum_path = File.join(File.dirname(__FILE__), './lorem-ipsum.txt')
-
-# run the analysis using the #file method
+# run the analysis using the #from_file method
 tokens = Lexeme.analyze do
-  from_file ipsum_path
+  from_file 'lorem-ipsum.txt'
 end
 
-# Displaying tokens is a super easy task
-# once the #analyze method returns results
-tokens.each do |t|
-  puts t.to_text
-end
-
-# Here's another example of running the #analyze method by 
-# using #string inside the block
-# tokens = Lexeme.analyze do 
-#   source 'Hi! My name is Vladimir. I live and work in LA, California.'
-# end
+# Displaying tokens is super easy 
+tokens.each { |t| puts t.to_s }

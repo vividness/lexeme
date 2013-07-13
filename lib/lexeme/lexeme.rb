@@ -38,71 +38,59 @@ module Lexeme
     end
 
     private 
-
+    
+    # TODO: Work on the time complexity for this one
+    #       This could be better.
     def scan(input)
       previous = ''
       current  = ''
       tokens   = []
       line     = 1
-      string_state = false
 
       input.each_char do |c|
-        line += 1 if c == "\n"
+        if c == "\n"
+          line += 1
+          c = ' '
+        end
         
-        if c == "'" || c == '"'
-          previous << c
-          string_state ^= true
-          next
-        end
-
-        if string_state
-          previous << c
-          next
-        end
-
-        if ignorable?(c)
-          unless previous.empty?
-            token   = identify(previous)
-            raise RuntimeError, "Unknown token #{previous} on line #{line}!" if 
-              token.nil? || token.name.nil?
-
-            tokens << token 
-          end
-
+        if !previous.empty? && ignorable?(previous)
           previous = ''
           current  = ''
-          next
         end
-
+  
         current << c
+        
         if !identifiable?(current)
-          raise RuntimeError, "Unknown token #{current} on line #{line}!" if 
-            previous.empty? 
+          raise RuntimeError, "Unknown token `#{current}` on line #{line}" if 
+            previous.empty?
           
           token = identify(previous)
-
-          raise RuntimeError, "Unknown token #{previous} on line #{line}!" if 
+          
+          raise RuntimeError, "Unknown token `#{previous}` on line #{line}" if 
             token.nil? || token.name.nil?
 
-          tokens << token
+          tokens  << token
           previous = c.clone
           current  = c.clone
-          
           next
         end
         
         previous = current.clone
       end
       
-      unless previous.empty?
-        tokens << identify(previous)
+      if !previous.empty? && !ignorable?(previous)
+        token = identify(previous)
+        raise RuntimeError, "Unknow token `#{previous}` on line #{line}" if
+          token.nil? || token.name.nil?
+        
+        tokens << token
       end
 
       tokens
     end
     
-    def ignorable?(char)
-      @ruleset.ignorable? char
+    def ignorable?(string)
+      @ruleset.ignorable?(string)
     end
     
     def identifiable?(string)

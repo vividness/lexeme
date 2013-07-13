@@ -1,2 +1,0 @@
-Lexeme#define redefines previously configured ruleset. 
-Refactor Lexeme#define to return a lexer instance instead of running it as a singleton.

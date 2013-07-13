@@ -25,6 +25,7 @@ describe Lexeme do
     it 'tokenize a math formulas source' do
       source = File.join(File.dirname(__FILE__), '/fixtures/source.math')
       
+      Lexeme.reset!
       Lexeme.define do
         token 'OPEN'     => /^\($/
         token 'CLOS'     => /^\)$/
@@ -41,34 +42,36 @@ describe Lexeme do
         from_file source
       end
       
-      returned = tokens[4].name.eql?('FUNCTION') && tokens[4].value.eql?('sqrt')
-      returned.should be_true 
+      tokens[4].name.should  be_eql('FUNCTION')
+      tokens[4].value.should be_eql('sqrt')
     end
 
     it 'tokenize a program language pseudo code' do
       source = File.join(File.dirname(__FILE__), '/fixtures/source.pseudo')
       
+      Lexeme.reset!
       Lexeme.define do
-        token 'EQ'      => /^=$/
-        token 'PLUS'    => /^\+$/
-        token 'MINUS'   => /^\-$/
-        token 'MULTI'   => /^\*$/
-        token 'DIV'     => /^\/$/
-        token 'NUMBER'  => /^\d+\.?\d?$/
-        token 'RESERVED'=> /^(fin|print|func|)$/
-        token 'STRING'  => /^".*"$/
-        token 'ID'      => /^[\w_"]+$/
+        token :EQ       => /^=$/
+        token :PLUS     => /^\+$/
+        token :MINUS    => /^\-$/
+        token :MULTI    => /^\*$/
+        token :DIV      => /^\/$/
+        token :NUMBER   => /^\d+\.?\d?$/
+        token :RESERVED => /^(fin|print|func)$/
+        token :STRING   => /^"[^"]*"?$/
+        token :ID       => /^[\w_]+$/
       end
 
       tokens = Lexeme.analyze do 
         from_file source
       end
       
-      returned = tokens[-1].name.eql?('RESERVED') && tokens[-1].value.eql?('fin')
-      returned.should be_true
+      tokens[-1].name.should  == :RESERVED 
+      tokens[-1].value.should == 'fin'
     end
 
     it 'tokenizes a human language sentence' do 
+      Lexeme.reset!
       Lexeme.define do
         token :STOP     =>   /^\.$/
         token :COMA     =>   /^,$/
