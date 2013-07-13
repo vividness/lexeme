@@ -2,10 +2,15 @@ module Lexeme
   class Ruleset
     def initialize(&block)
       @rules  = []
-      @ignore = []
+      @ignore = [] 
       
+      # this is here to capture any other
+      # symbols that could be identified
+      # as var names, function names ...
       @unknown = Rule.new(nil, /^\w+$/)
-      @ignore << /\s+/
+
+      # this skips all whitespaces by default
+      @ignore << /^\s+/
 
       yield self if block_given?
     end
@@ -18,9 +23,9 @@ module Lexeme
       @ignore << regex
     end
 
-    def ignorable?(char)
+    def ignorable?(string)
       @ignore.each do |i|
-        return true if char =~ i
+        return true if string =~ i
       end
 
       false
@@ -32,6 +37,10 @@ module Lexeme
       end
 
       return true if string =~ @unknown.regex
+      
+      @ignore.each do |i|
+        return true if string =~ i
+      end
 
       false
     end
