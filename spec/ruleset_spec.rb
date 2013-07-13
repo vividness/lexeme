@@ -29,10 +29,8 @@ describe Lexeme::Ruleset do
     it 'adds ignored token criteria' do  
       ruleset = subject.new
           
-      expected = [/\s+/, /\d/]
-      returned = ruleset.ignore(expected.last)
-
-      returned.should be_eql(expected)
+      returned = ruleset.ignore /\d/
+      returned.should include(/\d/)
     end 
   end
 

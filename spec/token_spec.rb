@@ -10,8 +10,8 @@ describe Lexeme::Token do
   end
 
   describe '#to_text' do
-    it 'returns token as text' do
-      subject.to_text.should be_eql 'INT: 1234'
+    it 'returns token as string' do
+      subject.to_s.should be_eql 'INT: 1234'
     end
   end
 
