@@ -44,7 +44,7 @@ Our ruby code should look like this:
 ```ruby
 require 'lexeme'
 
-Lexeme.define do
+lexer = Lexeme.define do
   token :EQ       => /^=$/
   token :PLUS     => /^\+$/
   token :MINUS    => /^\-$/
@@ -56,7 +56,7 @@ Lexeme.define do
   token :ID       => /^[\w_"]+$/ 
 end
 
-tokens = Lexeme.analyze do 
+tokens = lexer.analyze do 
   from_file 'pseudo-code.src'
 end
 
@@ -100,7 +100,7 @@ A more advanced example with a customized syntatical rules would be something li
 ```ruby
 require 'lexeme'
 
-Lexeme.define do
+lexer = Lexeme.define do
   token :STOP     =>   /^\.$/
   token :COMA     =>   /^,$/
   token :QUES     =>   /^\?$/
@@ -110,7 +110,7 @@ Lexeme.define do
   token :WORD     =>   /^[\w\-]+$/
 end 
 
-tokens = Lexeme.analyze do
+tokens = lexer.analyze do
   from_string 'Hello! My name is Inigo Montoya. You killed my father. Prepare to die.'
 end
 
