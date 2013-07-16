@@ -1,12 +1,17 @@
 TODO
 ====
 
-Language specs
+Documentation
+-------------
+Use Rdoc to document the lib
+
+
+Language specs (in progress)
 --------------
 
 The idea is to have lexeme extendable with user defined langage rulesets.
 
-example:
+example 1:
 
 ```ruby
 Lexeme.define do 
@@ -18,7 +23,7 @@ tokens = Lexeme.analyze do
 end
 ```
 
-or: 
+example 2: 
 
 ```ruby
 Lexeme.define do 
@@ -32,11 +37,10 @@ end
 
 Scanner algorithm 
 -----------------
-
 Needs more improvements for better time complexity
 
-Go singleton or not?
---------------------
-
+Go singleton or not? (implemented; instance model)
+-------------------- 
 Lexeme#define redefines previously configured ruleset.
 Refactor Lexeme#define to return a lexer instance instead of running it as a singleton.
+ 
