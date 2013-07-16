@@ -10,7 +10,7 @@ require 'lexeme'
 # Setup the lexeme object by adding language lexical rules.
 # In this case, I described a language that will make the lexer
 # process math equations such is 1 + 4 - 6/5 - sin(1)
-Lexeme.define do
+lexer = Lexeme.define do
   token :LPAR     =>   /^\($/
   token :RPAR     =>   /^\)$/
   token :PLUS     =>   /^\+$/
@@ -23,7 +23,7 @@ end
 
 # Now that we have language defined
 # Let's analyze the file and collect the tokens
-tokens = Lexeme.analyze do 
+tokens = lexer.analyze do 
   from_file 'sample_math.txt'
 end
 
