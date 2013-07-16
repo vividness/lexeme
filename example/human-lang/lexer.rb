@@ -8,7 +8,7 @@
 require 'lexeme'
 
 # Setup the lexeme object by adding language lexical rules.
-Lexeme.define do
+lexer = Lexeme.define do
   token :STOP     =>   /^\.$/
   token :COMA     =>   /^,$/
   token :QUES     =>   /^\?$/
@@ -19,7 +19,7 @@ Lexeme.define do
 end
 
 # run the analysis using the #from_file method
-tokens = Lexeme.analyze do
+tokens = lexer.analyze do
   from_file 'lorem-ipsum.txt'
 end
 
