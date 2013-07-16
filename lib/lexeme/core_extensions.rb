@@ -1,19 +1,20 @@
-class ::String 
+class ::String
+  # Will move to tokenize and have #to_tokens obsolete
   def to_tokens
-    content = to_s
-
-    Lexeme.define do
-      token :STOP => /^\.$/
-      token :COMA => /^,$/
-      token :QUES => /^\?$/
-      token :EXCL => /^!$/
-      token :QUOT => /^"$/
-      token :APOS => /^'$/
-      token :WORD => /^[\w\-]+$/
+    @lexer ||= Lexeme.define do 
+      use_language :natural
     end
     
-    Lexeme.analyze do
-      return from_string content
+    string_content = self 
+
+    @lexer.analyze do
+      from_string string_content
     end
+
+    @lexer.tokens
+  end
+
+  def tokenize
+    to_tokens
   end
 end

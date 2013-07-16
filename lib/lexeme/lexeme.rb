@@ -1,6 +1,11 @@
 module Lexeme
   class Lexeme
     attr_accessor :ruleset
+    attr_reader   :tokens
+    
+    def analyze(&block)
+      instance_eval(&block)
+    end
 
     def from_file(filepath = nil)
       raise ArgumentError, 'Argument 1 must be a String' unless
@@ -12,8 +17,7 @@ module Lexeme
       raise RuntimeError, 'Source file not readable' unless 
         File.exists?(filepath)
       
-            
-      scan IO.read(filepath)
+      @tokens = scan(IO.read(filepath))
     end
 
     def from_string(source)
@@ -23,10 +27,9 @@ module Lexeme
       raise ArgumentError, 'Source not defined' if 
         source.empty?
       
-      scan source
+      @tokens = scan(source)
     end
 
-    # Used by the Lexeme.define method
     def token(params)
       @ruleset ||= Ruleset.new
 
@@ -35,6 +38,13 @@ module Lexeme
       @ruleset.rule(name, regex)
       
       @ruleset
+    end
+    
+    def use_language(name)
+      require "lexeme/languages/#{name}.rb"
+      instance_eval(&Language::send(name))
+    rescue LoadError
+      abort "Language file cannot be found"
     end
 
     private 
