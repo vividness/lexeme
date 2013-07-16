@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.files       = ['lib/lexeme.rb', 'lib/lexeme/lexeme.rb', 
                    'lib/lexeme/token.rb', 'lib/lexeme/ruleset.rb', 
                    'lib/lexeme/rule.rb', 'lib/lexeme/core_extensions.rb', 
-                   'lib/lexeme/version.rb', 'lib/languages/natural.rb']
+                   'lib/lexeme/version.rb', 'lib/lexeme/languages/natural.rb']
   
   s.require_paths = ['lib']
 end
