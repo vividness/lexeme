@@ -1,8 +1,6 @@
 class ::String 
   def to_tokens
-    content = to_s
-
-    Lexeme.define do
+    @lexer ||= Lexeme.define do
       token :STOP => /^\.$/
       token :COMA => /^,$/
       token :QUES => /^\?$/
@@ -12,8 +10,12 @@ class ::String
       token :WORD => /^[\w\-]+$/
     end
     
-    Lexeme.analyze do
-      return from_string content
+    string_content = self 
+
+    @lexer.analyze do
+      from_string string_content
     end
+
+    @lexer.tokens
   end
 end
