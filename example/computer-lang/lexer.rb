@@ -9,7 +9,7 @@ require 'lexeme'
 
 # Setup the lexeme object by adding language lexical rules.
 # Note: This is not a full C lang spec.
-Lexeme.define do
+lexer = Lexeme.define do
   token :LPAR     =>   /^\($/
   token :LBRA     =>   /^\{$/
   token :RPAR     =>   /^\)$/
@@ -30,7 +30,7 @@ end
 
 # Now that we have language defined
 # Let's analyze the file and collect the tokens
-tokens = Lexeme.analyze do 
+tokens = lexer.analyze do 
   from_file 'hello_world.c'
 end
 
