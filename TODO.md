@@ -1,6 +1,11 @@
 TODO
 ====
 
+Skip tokens
+-----------
+- Comments 
+- White chars
+
 Documentation
 -------------
 Use Rdoc to document the lib
