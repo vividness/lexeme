@@ -16,7 +16,7 @@ The easiest and fastest way to try the latest version is:
     irb -Ilib 
     irb(main):001:0> require 'lexeme'
     => true
-    irb(main):002:0> "Greetings from LA!!".to_tokens
+    irb(main):002:0> "Greetings from LA!!".tokenize
     => [WORD: Greetings, WORD: from, WORD: LA, EXCL: !, EXCL: !]
     
 Usage
@@ -88,7 +88,7 @@ Lexeme can also be used for human language processing. Here's a quick example on
 ```ruby
 require 'lexeme'
 
-puts "Greetings from Los Angeles!!".to_tokens
+puts "Greetings from Los Angeles!!".tokenize
 ```
 
 Running this code will produce:
