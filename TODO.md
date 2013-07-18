@@ -1,15 +1,15 @@
 TODO
 ====
+as of 2013-07-17
 
-Skip tokens
------------
-- Comments 
-- White chars
+Introduce skip tokens
+---------------------
+- Comments
+- Whitespaces
 
-Documentation
--------------
+Document the code 
+-----------------
 Use Rdoc to document the lib
-
 
 Language specs (in progress)
 --------------
@@ -43,9 +43,3 @@ end
 Scanner algorithm 
 -----------------
 Needs more improvements for better time complexity
-
-Go singleton or not? (implemented; instance model)
--------------------- 
-Lexeme#define redefines previously configured ruleset.
-Refactor Lexeme#define to return a lexer instance instead of running it as a singleton.
- 
