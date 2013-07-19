@@ -16,20 +16,6 @@ Language specs (in progress)
 
 The idea is to have lexeme extendable with user defined langage rulesets.
 
-example 1:
-
-```ruby
-Lexeme.define do 
-  use_language :ruby
-end
-
-tokens = Lexeme.analyze do 
-  from_file 'kernel.rb'
-end
-```
-
-example 2: 
-
 ```ruby
 Lexeme.define do 
   use_language :mysql
