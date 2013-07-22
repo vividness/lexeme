@@ -1,27 +1,32 @@
 TODO
 ====
-as of 2013-07-17
 
 Introduce skip tokens
 ---------------------
 - Comments
 - Whitespaces
 
-Document the code 
------------------
-Use Rdoc to document the lib
+```ruby
+lexer = Lexeme.define do 
+  token :ID      => /^\w+/
+  skip  :WHITE   => /^\s/
+  skip  :COMMENT => /^#.*\n/          # one line comment ruby style
+  skip  :COMMENT => /^\/\/.*\n/       # one line comment c++ style
+  skip  :COMMENT => /^\/\*.*(\*\/)+/  # multi line comment c style
+end
+
+```
 
 Language specs (in progress)
---------------
-
-The idea is to have lexeme extendable with user defined langage rulesets.
+----------------------------
+Write a doc section that explains how a lang-spec is created
 
 ```ruby
-Lexeme.define do 
+lexer = Lexeme.define do 
   use_language :mysql
 end
 
-tokens = Lexeme.analyze
+lexer.analyze
   from_string 'SELECT * FROM users WHERE id = 1'
 end
 ```
@@ -29,3 +34,7 @@ end
 Scanner algorithm 
 -----------------
 Needs more improvements for better time complexity
+
+Document the code 
+-----------------
+Use Rdoc to document the lib
