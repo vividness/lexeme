@@ -4,7 +4,7 @@ Gem::Specification.new do |s|
   s.date        = '2013-07-15'
   s.summary     = 'Lexeme'
   s.description = 'A simple lexical analyzer written in Ruby'
-  spec.license  = 'MIT'
+  s.license  = 'MIT'
   s.authors     = ['Vladimir Ivic']
   s.email       = 'vladimir.ivic@icloud.com'
   s.homepage    = 'https://github.com/mancmelou/lexeme'
