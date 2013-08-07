@@ -7,17 +7,6 @@ Install
 There are two easy ways to get `lexeme` on your box. You can either download the source or install the ruby gem. 
 
     gem install lexeme
-
-The easiest and fastest way to try the latest version is:
-
-    git clone https://github.com/mancmelou/lexeme.git
-    cd lexeme
-    
-    irb -Ilib 
-    irb(main):001:0> require 'lexeme'
-    => true
-    irb(main):002:0> "Greetings from LA!!".tokenize
-    => [WORD: Greetings, WORD: from, WORD: LA, EXCL: !, EXCL: !]
     
 Usage
 -----

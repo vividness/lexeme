@@ -1,6 +1,5 @@
 class ::String
-  # Will move to tokenize and have #to_tokens obsolete
-  def to_tokens
+  def tokenize 
     @lexer ||= Lexeme.define do 
       use_language :natural
     end
@@ -14,7 +13,8 @@ class ::String
     @lexer.tokens
   end
 
-  def tokenize
-    to_tokens
+  def to_tokens
+    warn "String#to_tokens is obsolete, use String#tokenize instead"
+    tokenize
   end
 end

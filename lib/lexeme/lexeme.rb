@@ -41,10 +41,12 @@ module Lexeme
     end
     
     def use_language(name)
-      require "lexeme/languages/#{name}.rb"
+      lang_file = "lexeme/languages/#{name}.rb"
+      require lang_file
+
       instance_eval(&Language::send(name))
     rescue LoadError
-      abort "Language file cannot be found"
+      abort "Language file #{lang_file} cannot be found"
     end
 
     private 
