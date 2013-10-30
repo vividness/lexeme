@@ -70,9 +70,9 @@ Once ran, the code above should output:
     STRING: "Hello"
     RESERVED: fin
 
-Human languages 
----------------
-Lexeme can also be used for human language processing. Here's a quick example on how to do it.
+Natural languages
+-----------------
+Lexeme can also be used for natral language processing. Here's a quick example on how to do it.
 
 ```ruby
 require 'lexeme'
