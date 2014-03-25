@@ -128,6 +128,17 @@ Will output:
     WORD: die
     STOP: .
 
+Change log
+----------
+Version 0.0.5
+- Added line number to each token object. Useful for hinting errors to the user (thanks Rick).
+    
+    ```ruby 
+    tokens.each do |token|
+      puts "#{token.line} => #{token.name}: #{token.value}"
+    end
+    ```
+
 Contributing
 ------------
 Any help on this project is very welcome. Please feel free to fork, modify and 
