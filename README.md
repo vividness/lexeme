@@ -50,25 +50,25 @@ tokens = lexer.analyze do
 end
 
 tokens.each do |t|
-  puts "#{t.name}: #{t.value}"
+  puts "#{t.line} => #{t.name}: #{t.value}"
 end
 ```
 
-Once ran, the code above should output:
+Once ran, the code above should output (line => token_id: token_value):
 
-    RESERVED: func
-    ID: hello_world
-    ID: x
-    EQ: =
-    NUMBER: 1
-    ID: y
-    EQ: =
-    ID: x
-    PLUS: +
-    NUMBER: 2
-    RESERVED: print
-    STRING: "Hello"
-    RESERVED: fin
+    1 => RESERVED: func
+    1 => ID: hello_world
+    2 => ID: x
+    2 => EQ: =
+    2 => NUMBER: 1
+    3 => ID: y
+    3 => EQ: =
+    3 => ID: x
+    3 => PLUS: +
+    3 => NUMBER: 2
+    4 => RESERVED: print
+    4 => STRING: "Hello"
+    5 => RESERVED: fin
 
 Natural languages
 -----------------
