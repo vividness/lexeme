@@ -57,12 +57,16 @@ module Lexeme
       previous = ''
       current  = ''
       tokens   = []
-      line     = 1
+      new_line = 0
+      line_num = 1
 
       input.each_char do |c|
         if c == "\n"
-          line += 1
+          new_line += 1
+          line_num += 1
           c = ' '
+        else 
+          new_line = 0
         end
         
         if !previous.empty? && ignorable?(previous)
@@ -76,7 +80,7 @@ module Lexeme
           raise RuntimeError, "Unknown token `#{current}` on line #{line}" if 
             previous.empty?
           
-          token = identify(previous)
+          token = identify(previous, line_num - new_line)
           
           raise RuntimeError, "Unknown token `#{previous}` on line #{line}" if 
             token.nil? || token.name.nil?
@@ -91,7 +95,7 @@ module Lexeme
       end
       
       if !previous.empty? && !ignorable?(previous)
-        token = identify(previous)
+        token = identify(previous, line_num - new_line) 
         raise RuntimeError, "Unknow token `#{previous}` on line #{line}" if
           token.nil? || token.name.nil?
         
@@ -106,11 +110,11 @@ module Lexeme
     end
     
     def identifiable?(string)
-      @ruleset.identifiable? string
+      @ruleset.identifiable?(string)
     end
 
-    def identify(string)
-      @ruleset.identify string
+    def identify(string, line)
+      @ruleset.identify(string, line)
     end
   end
 end

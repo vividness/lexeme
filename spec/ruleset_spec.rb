@@ -68,8 +68,8 @@ describe Lexeme::Ruleset do
         r.rule 'FUNCTION', /^sqrt|sin|cos|tan|pow$/
       end
 
-      expected = Lexeme::Token.new('FUNCTION', 'sin')
-      returned = ruleset.identify('sin')
+      expected = Lexeme::Token.new('FUNCTION', 'sin', 10)
+      returned = ruleset.identify('sin', 10)
 
       (expected.name == returned.name && expected.value == returned.value).should be_true
     end
