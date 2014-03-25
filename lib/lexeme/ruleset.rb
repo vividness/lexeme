@@ -45,12 +45,12 @@ module Lexeme
       false
     end
 
-    def identify(string)
+    def identify(string, line)
       @rules.each do |r|
-        return Token.new(r.name, string) if string =~ r.regex
+        return Token.new(r.name, string, line) if string =~ r.regex
       end
       
-      return Token.new(@unknown.name, string) if 
+      return Token.new(@unknown.name, string, line) if 
         string =~ @unknown.regex
 
       nil
