@@ -9,7 +9,7 @@ module Lexeme
     end
 
     def to_s
-      "#{line}: #{name} => #{value}"
+      "#{line} => #{name} : #{value}"
     end
 
     def to_hash
