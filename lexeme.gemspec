@@ -1,7 +1,7 @@
 Gem::Specification.new do |s| 
   s.name        = 'lexeme'
-  s.version     = '0.0.5'
-  s.date        = '2014-03-25'
+  s.version     = '0.0.6'
+  s.date        = '2014-03-31'
   s.summary     = 'Lexeme'
   s.description = 'A simple lexical analyzer written in Ruby'
   s.license     = 'MIT'

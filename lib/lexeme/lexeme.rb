@@ -77,12 +77,12 @@ module Lexeme
         current << c
         
         if !identifiable?(current)
-          raise RuntimeError, "Unknown token `#{current}` on line #{line}" if 
+          raise RuntimeError, "Unknown token `#{current}` on line #{line_num - new_line}" if 
             previous.empty?
           
           token = identify(previous, line_num - new_line)
           
-          raise RuntimeError, "Unknown token `#{previous}` on line #{line}" if 
+          raise RuntimeError, "Unknown token `#{previous}` on line #{line_num - new_line}" if 
             token.nil? || token.name.nil?
 
           tokens  << token
@@ -96,7 +96,7 @@ module Lexeme
       
       if !previous.empty? && !ignorable?(previous)
         token = identify(previous, line_num - new_line) 
-        raise RuntimeError, "Unknow token `#{previous}` on line #{line}" if
+        raise RuntimeError, "Unknow token `#{previous}` on line #{line_num - new_line}" if
           token.nil? || token.name.nil?
         
         tokens << token
