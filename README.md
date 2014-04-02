@@ -13,7 +13,7 @@ Usage
 Just look under the `example` directory for a quick example on how the library can be used to efficiently 
 tokenize mathematical expressions such is `1 + 3 - sin(0)/cos(1) * pow(6)`. However, since tokenizing 
 mathematical expressions may not be sufficient for a modern day programming language, another good example
-could be a demonstration of the ability to toknize pseudo code.
+could be a demonstration of the ability to tokenize pseudo code.
 
 Let's say we have a source code of some pseudo program and we save it in a file named `pseudo-code.src`:
 
