@@ -2,6 +2,8 @@ lexeme   [![Build Status](https://travis-ci.org/mancmelou/lexeme.png)](https://t
 ======
 A simple lexical analyzer for programming and human languages.
 
+http://www.vladimirivic.com/lexeme/
+
 Install
 -------
 There are two easy ways to get `lexeme` on your box. You can either download the source or install the ruby gem. 
