@@ -1,0 +1,226 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Lexeme by mancmelou</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Lexeme</h1>
+        <p>A simple lexical analyzer written in Ruby</p>
+
+        <p class="view"><a href="https://github.com/mancmelou/lexeme">View the Project on GitHub <small>mancmelou/lexeme</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/mancmelou/lexeme/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/mancmelou/lexeme/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/mancmelou/lexeme">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a name="lexeme" class="anchor" href="#lexeme"><span class="octicon octicon-link"></span></a>Lexeme</h1>
+
+<p>A simple lexical analyzer for programming and human languages.</p>
+
+<p><a href="https://travis-ci.org/mancmelou/lexeme"><img src="https://travis-ci.org/mancmelou/lexeme.png" alt="Build Status"></a> <a href="http://badge.fury.io/rb/lexeme"><img src="https://badge.fury.io/rb/lexeme.png" alt="Gem Version"></a></p>
+
+<h2>
+<a name="install" class="anchor" href="#install"><span class="octicon octicon-link"></span></a>Install</h2>
+
+<p>There are two easy ways to get <code>lexeme</code> on your box. You can either download the source or install the ruby gem. </p>
+
+<pre><code>gem install lexeme
+</code></pre>
+
+<h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>Just look under the <code>example</code> directory for a quick example on how the library can be used to efficiently 
+tokenize mathematical expressions such is <code>1 + 3 - sin(0)/cos(1) * pow(6)</code>. However, since tokenizing 
+mathematical expressions may not be sufficient for a modern day programming language, another good example
+could be a demonstration of the ability to tokenize pseudo code.</p>
+
+<p>Let's say we have a source code of some pseudo program and we save it in a file named <code>pseudo-code.src</code>:</p>
+
+<pre><code>func hello_world
+  x = 1
+  y = x + 2
+  print "Hello"
+fin
+</code></pre>
+
+<p>Since we can see that there's a couple of lexemes used in this language we will define them as part 
+of the lexer's operative ruleset. To keep things as simple as possible, I'll place
+the language definition and the lexical analyzer call in the same code base. 
+Ideally, language definition would be something you want to write and include separately. </p>
+
+<p>Our ruby code should look like this:</p>
+
+<div class="highlight highlight-ruby"><pre><span class="nb">require</span> <span class="s1">'lexeme'</span>
+
+<span class="n">lexer</span> <span class="o">=</span> <span class="no">Lexeme</span><span class="o">.</span><span class="n">define</span> <span class="k">do</span>
+  <span class="n">token</span> <span class="ss">:EQ</span>       <span class="o">=&gt;</span> <span class="sr">/^=$/</span>
+  <span class="n">token</span> <span class="ss">:PLUS</span>     <span class="o">=&gt;</span> <span class="sr">/^\+$/</span>
+  <span class="n">token</span> <span class="ss">:MINUS</span>    <span class="o">=&gt;</span> <span class="sr">/^\-$/</span>
+  <span class="n">token</span> <span class="ss">:MULTI</span>    <span class="o">=&gt;</span> <span class="sr">/^\*$/</span>
+  <span class="n">token</span> <span class="ss">:DIV</span>      <span class="o">=&gt;</span> <span class="sr">/^\/$/</span>
+  <span class="n">token</span> <span class="ss">:NUMBER</span>   <span class="o">=&gt;</span> <span class="sr">/^\d+\.?\d?$/</span>
+  <span class="n">token</span> <span class="ss">:RESERVED</span> <span class="o">=&gt;</span> <span class="sr">/^(fin|print|func|)$/</span>
+  <span class="n">token</span> <span class="ss">:STRING</span>   <span class="o">=&gt;</span> <span class="sr">/^".*"$/</span>
+  <span class="n">token</span> <span class="ss">:ID</span>       <span class="o">=&gt;</span> <span class="sr">/^[\w_"]+$/</span> 
+<span class="k">end</span>
+
+<span class="n">tokens</span> <span class="o">=</span> <span class="n">lexer</span><span class="o">.</span><span class="n">analyze</span> <span class="k">do</span> 
+  <span class="n">from_file</span> <span class="s1">'pseudo-code.src'</span>
+<span class="k">end</span>
+
+<span class="n">tokens</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
+  <span class="nb">puts</span> <span class="s2">"</span><span class="si">#{</span><span class="n">t</span><span class="o">.</span><span class="n">line</span><span class="si">}</span><span class="s2"> =&gt; </span><span class="si">#{</span><span class="n">t</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: </span><span class="si">#{</span><span class="n">t</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">"</span>
+<span class="k">end</span>
+</pre></div>
+
+<p>Once ran, the code above should output (line =&gt; token_id: token_value):</p>
+
+<pre><code>1 =&gt; RESERVED: func
+1 =&gt; ID: hello_world
+2 =&gt; ID: x
+2 =&gt; EQ: =
+2 =&gt; NUMBER: 1
+3 =&gt; ID: y
+3 =&gt; EQ: =
+3 =&gt; ID: x
+3 =&gt; PLUS: +
+3 =&gt; NUMBER: 2
+4 =&gt; RESERVED: print
+4 =&gt; STRING: "Hello"
+5 =&gt; RESERVED: fin
+</code></pre>
+
+<h2>
+<a name="natural-languages" class="anchor" href="#natural-languages"><span class="octicon octicon-link"></span></a>Natural languages</h2>
+
+<p>Lexeme can also be used for natral language processing. Here's a quick example on how to do it.</p>
+
+<div class="highlight highlight-ruby"><pre><span class="nb">require</span> <span class="s1">'lexeme'</span>
+
+<span class="nb">puts</span> <span class="s2">"Greetings from Los Angeles!!"</span><span class="o">.</span><span class="n">tokenize</span>
+</pre></div>
+
+<p>Running this code will produce:</p>
+
+<pre><code>[WORD: Greetings, WORD: from, WORD: Los, WORD: Angeles, EXCL: !, EXCL: !]
+</code></pre>
+
+<p>A more advanced example with a customized syntatical rules would be something like this:</p>
+
+<div class="highlight highlight-ruby"><pre><span class="nb">require</span> <span class="s1">'lexeme'</span>
+
+<span class="n">lexer</span> <span class="o">=</span> <span class="no">Lexeme</span><span class="o">.</span><span class="n">define</span> <span class="k">do</span>
+  <span class="n">token</span> <span class="ss">:STOP</span>     <span class="o">=&gt;</span>   <span class="sr">/^\.$/</span>
+  <span class="n">token</span> <span class="ss">:COMA</span>     <span class="o">=&gt;</span>   <span class="sr">/^,$/</span>
+  <span class="n">token</span> <span class="ss">:QUES</span>     <span class="o">=&gt;</span>   <span class="sr">/^\?$/</span>
+  <span class="n">token</span> <span class="ss">:EXCLAM</span>   <span class="o">=&gt;</span>   <span class="sr">/^!$/</span>
+  <span class="n">token</span> <span class="ss">:QUOT</span>     <span class="o">=&gt;</span>   <span class="sr">/^"$/</span>
+  <span class="n">token</span> <span class="ss">:APOS</span>     <span class="o">=&gt;</span>   <span class="sr">/^'$/</span>
+  <span class="n">token</span> <span class="ss">:WORD</span>     <span class="o">=&gt;</span>   <span class="sr">/^[\w\-]+$/</span>
+<span class="k">end</span> 
+
+<span class="n">tokens</span> <span class="o">=</span> <span class="n">lexer</span><span class="o">.</span><span class="n">analyze</span> <span class="k">do</span>
+  <span class="n">from_string</span> <span class="s1">'Hello! My name is Inigo Montoya. You killed my father. Prepare to die.'</span>
+<span class="k">end</span>
+
+<span class="n">tokens</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
+  <span class="nb">puts</span> <span class="s2">"</span><span class="si">#{</span><span class="n">t</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: </span><span class="si">#{</span><span class="n">t</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">"</span>
+<span class="k">end</span>
+</pre></div>
+
+<p>Will output: </p>
+
+<pre><code>WORD: Hello
+EXCLAM: !
+WORD: My
+WORD: name
+WORD: is
+WORD: Inigo
+WORD: Montoya
+STOP: .
+WORD: You
+WORD: killed
+WORD: my
+WORD: father
+STOP: .
+WORD: Prepare
+WORD: to
+WORD: die
+STOP: .
+</code></pre>
+
+<h2>
+<a name="change-log" class="anchor" href="#change-log"><span class="octicon octicon-link"></span></a>Change log</h2>
+
+<p>Version 0.0.5</p>
+
+<ul>
+<li>
+<p>Added line number to each token object. Useful for hinting errors to the user (thanks Rick).</p>
+
+<div class="highlight highlight-ruby"><pre><span class="n">tokens</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">token</span><span class="o">|</span>
+  <span class="nb">puts</span> <span class="s2">"</span><span class="si">#{</span><span class="n">token</span><span class="o">.</span><span class="n">line</span><span class="si">}</span><span class="s2"> =&gt; </span><span class="si">#{</span><span class="n">token</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">: </span><span class="si">#{</span><span class="n">token</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">"</span>
+<span class="k">end</span>
+</pre></div>
+</li>
+</ul><h2>
+<a name="contributing" class="anchor" href="#contributing"><span class="octicon octicon-link"></span></a>Contributing</h2>
+
+<p>Any help on this project is very welcome. Please feel free to fork, modify and 
+make pull requests. Also make sure you check the TODO file when the file is present in the repository. </p>
+
+<h2>
+<a name="author" class="anchor" href="#author"><span class="octicon octicon-link"></span></a>Author</h2>
+
+<p>Lexeme was written by Vladimir Ivic (vladimir.ivic at icloud.com) and is
+released under the MIT license.</p>
+
+<h2>
+<a name="the-mit-license-mit" class="anchor" href="#the-mit-license-mit"><span class="octicon octicon-link"></span></a>The MIT License (MIT)</h2>
+
+<p>Copyright (c) 2014 Vladimir Ivic</p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/mancmelou">mancmelou</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
